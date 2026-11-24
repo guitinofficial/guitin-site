@@ -9,7 +9,7 @@ KAKAO = 'https://pf.kakao.com/_eRvNX'
 INSTAGRAM = 'https://www.instagram.com/guitin.official/'
 EMAIL = 'guitin.official@gmail.com'
 STIBEE = 'https://page.stibee.com/subscriptions/532247'
-VERSION = '2'
+VERSION = '3'
 
 ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>'
 ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
