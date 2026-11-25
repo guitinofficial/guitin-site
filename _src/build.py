@@ -9,11 +9,27 @@ KAKAO = 'https://pf.kakao.com/_eRvNX'
 INSTAGRAM = 'https://www.instagram.com/guitin.official/'
 EMAIL = 'guitin.official@gmail.com'
 STIBEE = 'https://page.stibee.com/subscriptions/532247'
-VERSION = '3'
+VERSION = '6'
 
 ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>'
 ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
 ICON_KAKAO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 4C7 4 3 7.1 3 11c0 2.5 1.7 4.7 4.2 5.9l-.9 3.3c-.1.3.3.6.6.4l3.9-2.6c.4 0 .8.1 1.2.1 5 0 9-3.1 9-7S17 4 12 4z"/></svg>'
+
+
+def seal(uid, cls='seal', label=None, ring=False):
+    """Tricolor seal: black face, white blaze, one tan brow on the left (Guitang's right eye)."""
+    a11y = f'role="img" aria-label="{label}"' if label else 'aria-hidden="true"'
+    return (f'<svg class="{cls}" viewBox="0 0 200 200" {a11y}>'
+            f'<defs><clipPath id="seal-{uid}"><circle cx="100" cy="100" r="96"/></clipPath></defs>'
+            '<circle cx="100" cy="100" r="96" fill="#2E2621"/>'
+            f'<path d="M94 0 L106 0 L112 70 C118 110 148 150 170 200 L30 200 C52 150 82 110 88 70 Z" fill="#EEEBE4" clip-path="url(#seal-{uid})"/>'
+            '<ellipse cx="62" cy="74" rx="15" ry="7" fill="#A87E52" transform="rotate(-16 62 74)"/>'
+            + ('<circle cx="100" cy="100" r="93" fill="none" stroke="#EEEBE4" stroke-width="6"/>' if ring else '')
+            + '</svg>')
+
+
+WORDMARK = 'GU<span class="brow">I</span>TIN'
+
 
 
 def head(title, desc, path, extra=''):
@@ -36,7 +52,7 @@ def head(title, desc, path, extra=''):
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#F3EDE4">
+<meta name="theme-color" content="#EEEBE4">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="/assets/img/icon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -56,7 +72,7 @@ def header(current=''):
         return ' aria-current="page"' if current == name else ''
     return f'''<header class="site-header">
   <div class="wrap">
-    <a class="logo" href="/" aria-label="GUITIN 홈">GUITIN</a>
+    <a class="logo" href="/" aria-label="GUITIN 홈">{WORDMARK}</a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="메뉴 열기">{ICON_MENU}</button>
     <nav class="nav" id="site-nav" aria-label="주 메뉴">
       <a href="/scents"{cur('scents')}>Scents</a>
@@ -101,7 +117,7 @@ def close(text):
     <div>
       {form('close', dark=True)}
       <div class="alt">
-        <div class="divider" style="color:#CFC7B8">또는</div>
+        <div class="divider" style="color:rgba(238,235,228,.72)">또는</div>
         <a class="btn btn--line" href="{KAKAO}" target="_blank" rel="noopener">{ICON_KAKAO}카카오톡으로 출시 소식 받기</a>
       </div>
     </div>
@@ -114,7 +130,7 @@ def footer():
     return f'''<footer class="site-footer">
   <div class="wrap">
     <div>
-      <div class="brand">GUITIN</div>
+      <div class="brand">{WORDMARK}</div>
       <div class="brand-ko">귀탱 · 강아지를 위한 조향</div>
     </div>
     <ul>
@@ -139,6 +155,9 @@ def page(name, title, desc, path, body, current='', close_text=None):
     if close_text:
         html += close(close_text)
     html += '</main>\n' + footer() + dialog() + '</body>\n</html>\n'
+    # version every image URL so a replaced picture is never served from an old browser cache
+    import re
+    html = re.sub(r'(/assets/img/[\w.-]+\.(?:webp|jpg|png))(?![\w?])', r'\1?v=' + VERSION, html)
     (ROOT / name).write_text(html, encoding='utf-8')
     print('wrote', name)
 
@@ -177,7 +196,7 @@ home = f'''<section class="hero" aria-labelledby="hero-title">
     <img src="/assets/img/hero-pc.webp" srcset="/assets/img/hero-pc.webp 1672w, /assets/img/hero-pc-1100.webp 1100w" sizes="100vw" alt="창가 조향 작업대에서 시향지 끝에 코를 대는 귀탱이" fetchpriority="high">
   </picture>
   <div class="hero-copy" data-enter>
-    <div class="hero-brand" aria-hidden="true">GUITIN</div>
+    <div class="hero-brand" aria-hidden="true">{WORDMARK}</div>
     <div class="hero-tag">Perfumery for Dogs</div>
     <h1 id="hero-title">조향사가 만드는 강아지 향 케어</h1>
     <p>산책 후, 낮잠, 목욕 후. 강아지의 하루 세 순간에 맞춘 향을 조향사가 직접 설계합니다.</p>
