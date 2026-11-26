@@ -9,7 +9,7 @@ KAKAO = 'https://pf.kakao.com/_eRvNX'
 INSTAGRAM = 'https://www.instagram.com/guitin.official/'
 EMAIL = 'guitin.official@gmail.com'
 STIBEE = 'https://page.stibee.com/subscriptions/532247'
-VERSION = '8'
+VERSION = '9'
 
 ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>'
 ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
@@ -197,15 +197,17 @@ scene_cards = '\n'.join(f'''      <a class="scene scene--{k}" href="{href}">
 home = f'''<section class="hero" aria-labelledby="hero-title">
   <picture>
     <source media="(max-width: 767px)" srcset="/assets/img/hero-mobile.webp">
-    <img src="/assets/img/hero-pc.webp" srcset="/assets/img/hero-pc.webp 1672w, /assets/img/hero-pc-1100.webp 1100w" sizes="100vw" alt="창가 조향 작업대에서 시향지 끝에 코를 대는 귀탱이" fetchpriority="high">
+    <img src="/assets/img/hero-pc.webp" srcset="/assets/img/hero-pc.webp 1672w, /assets/img/hero-pc-1100.webp 1100w" sizes="100vw" alt="창문 빛이 드는 방, 푸른 이불 위에 엎드려 쉬는 귀탱이" fetchpriority="high">
   </picture>
   <div class="hero-copy" data-enter>
+    <img class="hero-mark" src="/assets/img/symbol-brown.svg" alt="" width="84" height="70">
     <div class="hero-brand" aria-hidden="true">GUITIN</div>
     <div class="hero-tag">Perfumery for Dogs</div>
-    <h1 id="hero-title">조향사가 만드는 강아지 향 케어</h1>
-    <p>산책 후, 낮잠, 목욕 후. 강아지의 하루 세 순간에 맞춘 향을 조향사가 직접 설계합니다.</p>
+    <span class="hero-rule" aria-hidden="true"></span>
+    <h1 id="hero-title" class="hero-ko">조향사가 만드는 강아지 향 케어</h1>
+    <p class="hero-desc">산책 후, 낮잠, 목욕 후. 강아지의 하루 세 순간에 맞춘 향을 조향사가 직접 설계합니다.</p>
     <div class="fact"><span>첫 제품</span><span>산책 후 클렌징 티슈</span><span>준비 중</span></div>
-    <a class="btn btn--solid" href="#subscribe-section" data-subscribe>출시 소식 받기</a>
+    <a class="btn hero-btn" href="#subscribe-section" data-subscribe>출시 소식 받기 <span aria-hidden="true">→</span></a>
   </div>
 </section>
 
