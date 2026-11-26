@@ -12,19 +12,19 @@
 <meta property="og:title" content="이용약관 · GUITIN">
 <meta property="og:description" content="GUITIN(귀탱) 웹사이트 이용약관">
 <meta property="og:url" content="https://guitin.co.kr/terms">
-<meta property="og:image" content="https://guitin.co.kr/assets/img/og.jpg?v=7">
+<meta property="og:image" content="https://guitin.co.kr/assets/img/og.jpg?v=8">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#F3EDE4">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" href="/assets/img/icon-32.png?v=7" sizes="32x32">
+<link rel="icon" type="image/png" href="/assets/img/icon-32.png?v=8" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Noto+Serif+KR:wght@400;500&display=swap">
-<link rel="stylesheet" href="/assets/css/site.css?v=7">
-<script src="/assets/js/site.js?v=7" defer></script>
+<link rel="stylesheet" href="/assets/css/site.css?v=8">
+<script src="/assets/js/site.js?v=8" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">본문 바로가기</a>
@@ -35,6 +35,7 @@
     <nav class="nav" id="site-nav" aria-label="주 메뉴">
       <a href="/scents">Scents</a>
       <a href="/story">Story</a>
+      <a href="/shop">Shop</a>
       <a class="btn btn--solid" href="#subscribe-section" data-subscribe>출시 소식 받기</a>
     </nav>
   </div>
@@ -80,6 +81,7 @@
     <ul>
       <li><a href="/scents">Scents</a></li>
       <li><a href="/story">Story</a></li>
+      <li><a href="/shop">Shop</a></li>
       <li><a href="https://www.instagram.com/guitin.official/" target="_blank" rel="noopener">Instagram</a></li>
       <li><a href="https://pf.kakao.com/_eRvNX" target="_blank" rel="noopener">카카오톡 채널</a></li>
     </ul>
@@ -102,6 +104,18 @@
   <a class="btn btn--solid" href="https://page.stibee.com/subscriptions/532247" target="_blank" rel="noopener">이메일로 출시 소식 받기</a>
   <p class="signup-note">스티비 구독 페이지가 새 창으로 열립니다. 수집 항목과 보관 기간은 <a href="/privacy">개인정보처리방침</a>에 있습니다.</p>
 </div>
+  </div>
+</dialog>
+<dialog class="modal" id="soldout" aria-labelledby="soldout-title">
+  <div class="modal-card">
+    <button class="modal-close" type="button" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <span class="en-line" style="margin-top:0">Sold out</span>
+    <h2 id="soldout-title">지금은 품절이에요</h2>
+    <p class="small">첫 생산분을 준비하고 있어 아직 주문을 받지 않습니다. 주문은 접수되지 않았어요. 출시되면 가장 먼저 알려드릴까요?</p>
+    <div class="modal-actions">
+      <button class="btn btn--solid" type="button" data-go-subscribe>알림받기로 이동</button>
+      <button class="btn btn--line" type="button" data-dismiss>닫기</button>
+    </div>
   </div>
 </dialog>
 </body>

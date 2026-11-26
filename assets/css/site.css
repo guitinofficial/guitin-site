@@ -322,6 +322,41 @@ details.consent div { padding-top: 8px; opacity: .85; }
   .dog--b .dog-ph { order: 0; }
 }
 
+/* ---------- shop ---------- */
+.shop { padding: clamp(48px, 7vw, 96px) 0 clamp(64px, 8vw, 112px); }
+.shop-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
+.shop-art { display: grid; gap: 12px; }
+.shop-ph { background: var(--paper); }
+.shop-ph img {
+  width: 100%;
+  -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 52%, #000 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse 72% 70% at 50% 52%, #000 62%, transparent 100%);
+}
+.shop-info { display: grid; gap: 22px; position: sticky; top: 96px; }
+.shop-info .num, .next-list .num { font-family: var(--latin); font-size: 15px; letter-spacing: 0.2em; color: var(--muted); }
+.status--out { border-color: var(--olive); color: var(--olive); }
+.price { display: flex; gap: 16px; align-items: baseline; font-size: 18px; }
+.price .k { font-size: 15px; color: var(--muted); }
+.buy { display: grid; grid-template-columns: auto 1fr; gap: 12px; margin-top: 4px; }
+.qty { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: var(--radius); height: 52px; }
+.qty button { width: 48px; height: 100%; border: 0; background: none; font: 400 20px/1 var(--ko); color: var(--olive); cursor: pointer; touch-action: manipulation; }
+.qty button:disabled { color: var(--line); cursor: default; }
+.qty output { min-width: 32px; text-align: center; font-size: 16px; font-variant-numeric: tabular-nums; }
+.buy-btn { min-height: 52px; font-size: 16px; }
+.next-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.next-list li { display: grid; grid-template-columns: 56px 1fr auto auto; gap: 16px; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--line); font-size: 17px; }
+.next-list .textlink { font-size: 15px; padding: 10px 0; }
+.modal-actions { display: grid; gap: 10px; margin-top: 4px; }
+.modal-actions .btn { width: 100%; min-height: 52px; font-size: 16px; }
+@media (max-width: 900px) {
+  .shop-grid { grid-template-columns: 1fr; }
+  .shop-info { position: static; }
+}
+@media (max-width: 520px) {
+  .next-list li { grid-template-columns: 40px 1fr auto; }
+  .next-list .status { display: none; }
+}
+
 /* ---------- legal pages ---------- */
 .legal { padding: clamp(64px, 8vw, 104px) 0; }
 .legal .wrap { max-width: calc(760px + var(--gutter) * 2); }

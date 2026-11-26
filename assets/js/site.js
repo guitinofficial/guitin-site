@@ -1,4 +1,4 @@
-/* GUITIN site script: mobile menu, subscribe dialog, newsletter form. No dependencies. */
+/* GUITIN site script: mobile menu, subscribe and sold-out dialogs, shop quantity. No dependencies. */
 (function () {
   'use strict';
 
@@ -18,7 +18,7 @@
     window.matchMedia('(min-width: 768px)').addEventListener('change', function (m) { if (m.matches) setMenu(false); });
   }
 
-  /* ---------- subscribe dialog ---------- */
+  /* ---------- dialogs ---------- */
   var dialog = document.getElementById('subscribe');
   function closeDialog() {
     if (!dialog || !dialog.open) return;
@@ -27,17 +27,47 @@
     dialog.classList.add('is-closing');
     setTimeout(function () { dialog.classList.remove('is-closing'); dialog.close(); }, 170);
   }
+  function openSubscribe() {
+    if (header) { header.classList.remove('is-open'); document.documentElement.style.overflow = ''; }
+    dialog.showModal();
+  }
   if (dialog && typeof dialog.showModal === 'function') {
     document.querySelectorAll('[data-subscribe]').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        if (header) { header.classList.remove('is-open'); document.documentElement.style.overflow = ''; }
-        dialog.showModal();
-              });
+        openSubscribe();
+      });
     });
     dialog.querySelector('.modal-close').addEventListener('click', closeDialog);
     dialog.addEventListener('cancel', function (e) { e.preventDefault(); closeDialog(); });
     dialog.addEventListener('click', function (e) { if (e.target === dialog) closeDialog(); });
+  }
+
+  /* ---------- sold-out: order is never placed; offer the launch alert instead ---------- */
+  var soldout = document.getElementById('soldout');
+  if (soldout && dialog && typeof soldout.showModal === 'function') {
+    document.querySelectorAll('[data-soldout]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) { e.preventDefault(); soldout.showModal(); });
+    });
+    var closeSoldout = function () { soldout.close(); };
+    soldout.querySelector('.modal-close').addEventListener('click', closeSoldout);
+    soldout.querySelector('[data-dismiss]').addEventListener('click', closeSoldout);
+    soldout.addEventListener('click', function (e) { if (e.target === soldout) closeSoldout(); });
+    soldout.querySelector('[data-go-subscribe]').addEventListener('click', function () {
+      soldout.close();
+      openSubscribe();
+    });
+  }
+
+  /* ---------- quantity stepper (shop) ---------- */
+  var qty = document.getElementById('qty');
+  if (qty) {
+    var minus = document.querySelector('[data-qty="-1"]');
+    var setQty = function (n) { n = Math.max(1, Math.min(10, n)); qty.textContent = n; minus.disabled = n <= 1; };
+    document.querySelectorAll('[data-qty]').forEach(function (b) {
+      b.addEventListener('click', function () { setQty(Number(qty.textContent) + Number(b.getAttribute('data-qty'))); });
+    });
+    setQty(1);
   }
 
 })();

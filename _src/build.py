@@ -9,7 +9,7 @@ KAKAO = 'https://pf.kakao.com/_eRvNX'
 INSTAGRAM = 'https://www.instagram.com/guitin.official/'
 EMAIL = 'guitin.official@gmail.com'
 STIBEE = 'https://page.stibee.com/subscriptions/532247'
-VERSION = '7'
+VERSION = '8'
 
 ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>'
 ICON_CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
@@ -63,6 +63,7 @@ def header(current=''):
     <nav class="nav" id="site-nav" aria-label="주 메뉴">
       <a href="/scents"{cur('scents')}>Scents</a>
       <a href="/story"{cur('story')}>Story</a>
+      <a href="/shop"{cur('shop')}>Shop</a>
       <a class="btn btn--solid" href="#subscribe-section" data-subscribe>출시 소식 받기</a>
     </nav>
   </div>
@@ -87,6 +88,22 @@ def dialog():
     <a class="btn btn--line" href="{KAKAO}" target="_blank" rel="noopener">{ICON_KAKAO}카카오톡으로 출시 소식 받기</a>
     <div class="divider">또는 이메일로</div>
     {form('dlg')}
+  </div>
+</dialog>
+'''
+
+
+def soldout_dialog():
+    return f'''<dialog class="modal" id="soldout" aria-labelledby="soldout-title">
+  <div class="modal-card">
+    <button class="modal-close" type="button" aria-label="닫기">{ICON_CLOSE}</button>
+    <span class="en-line" style="margin-top:0">Sold out</span>
+    <h2 id="soldout-title">지금은 품절이에요</h2>
+    <p class="small">첫 생산분을 준비하고 있어 아직 주문을 받지 않습니다. 주문은 접수되지 않았어요. 출시되면 가장 먼저 알려드릴까요?</p>
+    <div class="modal-actions">
+      <button class="btn btn--solid" type="button" data-go-subscribe>알림받기로 이동</button>
+      <button class="btn btn--line" type="button" data-dismiss>닫기</button>
+    </div>
   </div>
 </dialog>
 '''
@@ -122,6 +139,7 @@ def footer():
     <ul>
       <li><a href="/scents">Scents</a></li>
       <li><a href="/story">Story</a></li>
+      <li><a href="/shop">Shop</a></li>
       <li><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></li>
       <li><a href="{KAKAO}" target="_blank" rel="noopener">카카오톡 채널</a></li>
     </ul>
@@ -140,7 +158,7 @@ def page(name, title, desc, path, body, current='', close_text=None):
     html = head(title, desc, path) + header(current) + '<main id="main">\n' + body
     if close_text:
         html += close(close_text)
-    html += '</main>\n' + footer() + dialog() + '</body>\n</html>\n'
+    html += '</main>\n' + footer() + dialog() + soldout_dialog() + '</body>\n</html>\n'
     # version every image URL so a replaced picture is never served from an old browser cache
     import re
     html = re.sub(r'(/assets/img/[\w.-]+\.(?:webp|jpg|png))(?![\w?])', r'\1?v=' + VERSION, html)
@@ -330,6 +348,54 @@ story = f'''<section class="intro">
 page('story.html', '이야기 · GUITIN 귀탱',
      '미니어처 오스트레일리안 셰퍼드 귀탱이에서 시작한 강아지 향 브랜드 GUITIN의 이야기와 네 가지 원칙.',
      '/story', story, 'story', '귀탱이가 고른 첫 번째 향은 산책 후의 클렌징 티슈로 찾아옵니다. 출시 소식과 런칭 기념 쿠폰을 가장 먼저 보내드립니다.')
+
+# ------------------------------------------------------------------ shop
+shop = f'''<section class="shop" aria-labelledby="shop-title">
+  <div class="wrap shop-grid">
+    <div class="shop-art">
+      <div class="shop-ph">{pic('lineup', 'GUITIN 클렌징 티슈, 샴푸, 미스트 스프레이 동판화 일러스트', [('', 1536), ('-900', 900)], '(max-width: 900px) 100vw, 55vw', eager=True)}</div>
+      <p class="small">이미지는 일러스트입니다. 실제 제품 사진은 출시 때 공개합니다.</p>
+    </div>
+    <div class="shop-info">
+      <span class="num">I · 산책 후</span>
+      <h1 class="h-l" id="shop-title">산책 후 클렌징 티슈 <span class="status status--out">품절</span><span class="en-line">After the walk.</span></h1>
+      <p>산책에서 돌아와 현관에서 발과 몸을 닦는 향 클렌징 티슈. 라벤더와 맑은 비누 향으로 바깥 공기를 정리하고, 포근한 머스크가 털 사이에 남습니다.</p>
+      <p class="price"><span class="k">가격</span><span>출시 때 공개</span></p>
+      <ul class="product-list">
+        <li><span class="k">향</span><span>라벤더, 맑은 비누, 포근한 머스크</span></li>
+        <li><span class="k">구성</span><span>60매 · 캡형</span></li>
+        <li><span class="k">쓰는 때</span><span>산책에서 돌아와 현관에서</span></li>
+        <li><span class="k">성분</span><span>출시와 함께 전 성분 공개</span></li>
+      </ul>
+      <div class="buy">
+        <div class="qty" role="group" aria-label="수량">
+          <button type="button" data-qty="-1" aria-label="수량 빼기">−</button>
+          <output id="qty" aria-live="polite">1</output>
+          <button type="button" data-qty="1" aria-label="수량 더하기">+</button>
+        </div>
+        <button class="btn btn--solid buy-btn" type="button" data-soldout>주문하기</button>
+      </div>
+      <p class="small">현재 품절입니다. 주문하기를 누르면 출시 알림을 신청할 수 있어요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="next-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="h-m" id="next-title">다음 향<span class="en-line">Coming next.</span></h2>
+    </div>
+    <ul class="next-list">
+      <li><span class="num">II</span><span>낮잠</span><span class="status">준비 중</span><a class="textlink" href="/scents#nap">향 보기</a></li>
+      <li><span class="num">III</span><span>목욕 후, 잠들기 전</span><span class="status">준비 중</span><a class="textlink" href="/scents#night">향 보기</a></li>
+    </ul>
+  </div>
+</section>
+'''
+
+page('shop.html', '주문하기 · GUITIN 귀탱',
+     'GUITIN 첫 제품, 산책 후 클렌징 티슈. 현재 품절이며 출시 알림을 신청할 수 있습니다.',
+     '/shop', shop, 'shop', '첫 제품은 산책 후 클렌징 티슈입니다. 출시 소식과 런칭 기념 쿠폰을 가장 먼저 보내드립니다.')
 
 # ------------------------------------------------------------------ legal + 404
 legal_src = (ROOT / '_src')
